@@ -1,0 +1,23 @@
+---
+- name: Implement IOS device configurations
+  hosts: asr
+  gather_facts: false
+  connection: local
+
+  vars:
+    cli:
+      host: "{{ inventory_hostname }}"
+      username: cisco
+      password: cisco
+
+  tasks:
+    - name: run show version on remote devices
+      ios_command:
+        commands: show version
+        provider: "{{ cli }}"
+
+      register: output
+
+    - name: show command output
+      debug:
+        var: output.stdout
