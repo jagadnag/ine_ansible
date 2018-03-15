@@ -1,5 +1,5 @@
 ---
-- name: Implement IOS device configurations
+- name: Show running-config
   hosts: asr
   gather_facts: false
   connection: local

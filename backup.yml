@@ -1,17 +1,19 @@
 ---
-- name: backup router configurations
-  hosts: routers
+- name: Backup router configurations
+  hosts: asr
   connection: local
   gather_facts: no
 
+  vars:
+    cli:
+      host: "{{ inventory_hostname }}"
+      username: cisco
+      password: cisco
+
   tasks:
-    - name: gather ios_facts
-      ios_facts:
-      register: version
+    # Collect all facts from the device
+    - ios_facts:
+        gather_subset: all
+        provider: "{{ cli }}"
 
-    - debug:
-        msg: "{{version}}"
 
-    - name: Backup configuration
-      ios_config:
-        backup: yes
